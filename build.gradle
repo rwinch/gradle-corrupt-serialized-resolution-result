@@ -1,93 +1,15 @@
 plugins {
 	id 'java-platform'
 	id 'com.github.ben-manes.versions' version '0.38.0'
-	id 'se.patrikerdes.use-latest-versions' version '0.2.15'
 }
 
-javaPlatform {
-	allowDependencies()
+repositories {
+	mavenCentral()
 }
 
 dependencies {
-	api platform("org.springframework:spring-framework-bom:5.3.4")
-	api platform("io.projectreactor:reactor-bom:2020.0.4")
-	api platform("io.rsocket:rsocket-bom:1.1.0")
-	api platform("org.springframework.data:spring-data-releasetrain:Neumann-SR+")
-	api platform("org.jetbrains.kotlin:kotlin-bom:$kotlinVersion")
-	api platform("com.fasterxml.jackson:jackson-bom:2.12.2")
 	constraints {
-		api "ch.qos.logback:logback-classic:1.+"
-		api "com.google.appengine:appengine-api-1.0-sdk:$gaeVersion"
-		api "com.google.appengine:appengine-api-labs:$gaeVersion"
-		api "com.google.appengine:appengine-api-stubs:$gaeVersion"
-		api "com.google.appengine:appengine-testing:$gaeVersion"
-		api "com.google.appengine:appengine:$gaeVersion"
 		api "com.google.inject:guice:3.0"
-		api "com.nimbusds:nimbus-jose-jwt:9.7"
-		api "com.nimbusds:oauth2-oidc-sdk:9.2.2"
-		api "com.squareup.okhttp3:mockwebserver:3.+"
-		api "com.squareup.okhttp3:okhttp:3.+"
-		api "com.sun.xml.bind:jaxb-core:2.+"
-		api "com.sun.xml.bind:jaxb-impl:2.+"
-		api "com.unboundid:unboundid-ldapsdk:4.0.14"
-		api "commons-codec:commons-codec:1.15"
-		api "commons-collections:commons-collections:3.2.2"
-		api "commons-httpclient:commons-httpclient:3.1"
-		api "commons-logging:commons-logging:1.2"
-		api "io.projectreactor.tools:blockhound:1.0.4.RELEASE"
-		api "javax.annotation:jsr250-api:1.0"
-		api "javax.servlet.jsp.jstl:javax.servlet.jsp.jstl-api:1.2.2"
-		api "javax.servlet.jsp:javax.servlet.jsp-api:2.3.3"
-		api "javax.servlet:javax.servlet-api:4.0.1"
-		api "javax.validation:validation-api:2.0.1.Final"
-		api "javax.xml.bind:jaxb-api:2.4.0-b180830.0359"
-		api "junit:junit:4.13.2"
-		api "ldapsdk:ldapsdk:4.1"
-		api "net.sf.ehcache:ehcache:2.10.6"
-		api "net.sourceforge.htmlunit:htmlunit:2.47.1"
-		api "net.sourceforge.nekohtml:nekohtml:1.9.22"
-		api "org.apache.directory.server:apacheds-core-entry:1.5.5"
-		api "org.apache.directory.server:apacheds-core:1.5.5"
-		api "org.apache.directory.server:apacheds-protocol-ldap:1.5.5"
-		api "org.apache.directory.server:apacheds-protocol-shared:1.5.5"
-		api "org.apache.directory.server:apacheds-server-jndi:1.5.5"
-		api "org.apache.directory.shared:shared-ldap:0.9.15"
-		api "org.apache.httpcomponents:httpclient:4.5.13"
-		api "org.aspectj:aspectjrt:$aspectjVersion"
-		api "org.aspectj:aspectjtools:$aspectjVersion"
-		api "org.aspectj:aspectjweaver:$aspectjVersion"
-		api "org.assertj:assertj-core:3.19.0"
-		api "org.bouncycastle:bcpkix-jdk15on:1.68"
-		api "org.bouncycastle:bcprov-jdk15on:1.68"
-		api "org.eclipse.jetty:jetty-server:9.4.19.v20190610"
-		api "org.eclipse.jetty:jetty-servlet:9.4.19.v20190610"
-		api "org.eclipse.persistence:javax.persistence:2.2.1"
-		api "org.hibernate:hibernate-entitymanager:5.+"
-		api "org.hibernate:hibernate-validator:6.+"
-		api "org.hsqldb:hsqldb:2.5.1"
-		api "org.jasig.cas.client:cas-client-core:3.6.2"
-		api "org.jasig.cas:cas-server-webapp:4.2.7"
-		api "org.mockito:mockito-core:3.8.0"
-		api "org.openid4java:openid4java-nodeps:0.9.6"
-		api "org.opensaml:opensaml-core:$openSamlVersion"
-		api "org.opensaml:opensaml-saml-api:$openSamlVersion"
-		api "org.opensaml:opensaml-saml-impl:$openSamlVersion"
-		api "org.powermock:powermock-api-mockito2:2.0.9"
-		api "org.powermock:powermock-api-support:2.0.9"
-		api "org.powermock:powermock-core:2.0.9"
-		api "org.powermock:powermock-module-junit4-common:2.0.9"
-		api "org.powermock:powermock-module-junit4:2.0.9"
-		api "org.powermock:powermock-reflect:2.0.9"
-		api "org.python:jython:2.5.+"
-		api "org.seleniumhq.selenium:htmlunit-driver:2.47.1"
-		api "org.seleniumhq.selenium:selenium-java:3.+"
-		api "org.seleniumhq.selenium:selenium-support:3.+"
-		api "org.skyscreamer:jsonassert:1.5.0"
-		api "org.slf4j:jcl-over-slf4j:1.+"
-		api "org.slf4j:log4j-over-slf4j:1.+"
-		api "org.slf4j:slf4j-api:1.+"
-		api "org.springframework.ldap:spring-ldap-core:2.3.3.RelEASE"
-		api "org.synchronoss.cloud:nio-multipart-parser:1.1.0"
 	}
 }
 
@@ -96,45 +18,24 @@ tasks.dependencyUpdates.configure {
 	resolutionStrategy {
 		componentSelection {
 			all { ComponentSelection selection ->
+				println selection
 				def candidateVersion = selection.candidate.version
-				if (candidateVersion ==~ /(?i).*?(alpha|beta|m\d+|rc\d+).*/) {
+				if (candidateVersion.contains("BETA")) {
+					println "Reject 1"
 					reject("$canidateVersion is not allowed because it is an alpha or beta version")
 				}
 			}
+
 			all { ComponentSelection selection ->
+				println selection
 				def candidateVersion = selection.candidate.version
-				if (candidateVersion ==~ /(?i).*?m\d+.*/) {
-					reject("$canidateVersion is not allowed because it is a milestone version")
-				}
-			}
-			all { ComponentSelection selection ->
-				def candidateVersion = selection.candidate.version
-				if (candidateVersion ==~ /(?i).*?rc\d+.*/) {
-					reject("$canidateVersion is not allowed because it is a release candidate version")
-				}
-			}
-			all { ComponentSelection selection ->
 				def currentVersion = selection.currentVersion
 				def separator = currentVersion.indexOf(".")
 				def major = separator > 0 ? currentVersion.substring(0,separator) : currentVersion
-				if (!selection.candidate.version.startsWith(major)) {
+				println major
+				if (!candidateVersion.startsWith(major)) {
+					println "Reject 2"
 					reject("Cannot Upgrade to new Major Version")
-				}
-			}
-			all { ComponentSelection selection ->
-				def candidate = selection.candidate
-				if (candidate.group == "org.apache.directory.server" && candidate.version != selection.currentVersion) {
-					reject("org.apache.directory.server has breaking changes in newer versions")
-				}
-			}
-			withModule("javax.xml.bind:jaxb-api") { ComponentSelection selection ->
-				if (selection.candidate.version ==~ /b\d+/) {
-					reject("Reject jaxb-api beta versions")
-				}
-			}
-			withModule("com.sun.xml.bind:jaxb-impl") { ComponentSelection selection ->
-				if (selection.candidate.version ==~ /b\d+/) {
-					reject("Reject jaxb-api beta versions")
 				}
 			}
 		}
