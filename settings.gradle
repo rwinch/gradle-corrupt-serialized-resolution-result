@@ -1,0 +1,27 @@
+pluginManagement {
+	plugins {
+		id "com.github.johnrengelman.shadow" version "6.1.0"
+		id "nebula.integtest" version "8.0.0"
+	}
+	repositories {
+		gradlePluginPortal()
+		maven { url 'https://repo.spring.io/plugins-release' }
+	}
+}
+
+plugins {
+	id "com.gradle.enterprise" version "3.5.1"
+	id "io.spring.ge.conventions" version "0.0.7"
+}
+
+enableFeaturePreview("VERSION_ORDERING_V2")
+
+dependencyResolutionManagement {
+	repositories {
+		mavenCentral()
+	}
+}
+
+rootProject.name = 'spring-security'
+
+include ':dependencies'
