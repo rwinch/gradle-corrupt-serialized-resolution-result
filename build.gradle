@@ -18,23 +18,13 @@ tasks.dependencyUpdates.configure {
 	resolutionStrategy {
 		componentSelection {
 			all { ComponentSelection selection ->
-				println selection
-				def candidateVersion = selection.candidate.version
-				if (candidateVersion.contains("BETA")) {
-					println "Reject 1"
+				if (selection.candidate.version.contains("BETA")) {
 					reject("$canidateVersion is not allowed because it is an alpha or beta version")
 				}
 			}
 
 			all { ComponentSelection selection ->
-				println selection
-				def candidateVersion = selection.candidate.version
-				def currentVersion = selection.currentVersion
-				def separator = currentVersion.indexOf(".")
-				def major = separator > 0 ? currentVersion.substring(0,separator) : currentVersion
-				println major
-				if (!candidateVersion.startsWith(major)) {
-					println "Reject 2"
+				if (selection.candidate.version.startsWith("5")) {
 					reject("Cannot Upgrade to new Major Version")
 				}
 			}
